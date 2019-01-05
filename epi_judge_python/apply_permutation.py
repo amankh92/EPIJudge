@@ -14,12 +14,26 @@ def apply_permutation1(perm, A):
     return
 
 
-def apply_permutation(A):
+def apply_permutation(perm, A):
     def cyclic_permutations(start, A):
-        pass
-
-    for i in range(len(A)):
-        pass
+        temp_val = A[start]
+        index = start
+        while True:
+            next_index = perm[index]
+            next_val = A[next_index]
+            A[next_index] = temp_val
+            temp_val = next_val
+            index = next_index
+            if index == start:
+                break
+    for i in range(len(perm)):
+        j = perm[i]
+        while j != i:
+            if j < i:
+                break
+            j = perm[j]
+        if j == i:
+            cyclic_permutations(j, A)
 
 
 def apply_permutation_wrapper(perm, A):

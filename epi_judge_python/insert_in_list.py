@@ -7,6 +7,8 @@ from test_framework.test_utils import enable_executor_hook
 
 # Insert new_node after node.
 def insert_after(node, new_node):
+    new_node.next = node.next
+    node.next = new_node
     # TODO - you fill in here.
     return
 

@@ -2,6 +2,11 @@ from test_framework import generic_test
 
 
 def search_list(L, key):
+    head = L
+    while head:
+        if head.data == key:
+            return head
+        head = head.next
     # TODO - you fill in here.
     return None
 
