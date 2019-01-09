@@ -4,11 +4,27 @@ from test_framework import generic_test
 from test_framework.binary_tree_utils import must_find_node, strip_parent_link
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
+import collections
 
 
 def lca(tree, node0, node1):
+    Status = collections.namedtuple('Status', ('num_nodes', 'ancestor'))
+
+    def lca_helper(node):
+        if not node:
+            return Status(0, None)
+        left_result = lca_helper(node.left)
+        if left_result.num_nodes == 2:
+            return left_result
+
+        right_result = lca_helper(node.right)
+        if right_result.num_nodes == 2:
+            return right_result
+
+        num_nodes = left_result.num_nodes + right_result.num_nodes + (node0, node1).count(node)
+        return Status(num_nodes, node if num_nodes == 2 else None)
     # TODO - you fill in here.
-    return None
+    return lca_helper(tree).ancestor
 
 
 @enable_executor_hook
