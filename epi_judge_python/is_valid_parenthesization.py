@@ -2,8 +2,20 @@ from test_framework import generic_test
 
 
 def is_well_formed(s):
+    stack = []
+    lookup = {
+        '{': '}',
+        '[': ']',
+        '(': ')'
+    }
+    for char in s:
+        if char in lookup.keys():
+            stack.append(char)
+        elif char in lookup.values():
+            if not stack or lookup[stack.pop()] != char:
+                return False
     # TODO - you fill in here.
-    return True
+    return not stack
 
 
 if __name__ == '__main__':

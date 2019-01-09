@@ -2,13 +2,24 @@ from test_framework import generic_test
 
 
 class Queue:
+    def __init__(self):
+        self._enq = []
+        self._deq = []
+
     def enqueue(self, x):
+        # if len(self._enq) == 0:
+        #     self._enq = [node for node in reversed(self._deq)]
+        #     self._deq = []
+        self._enq.append(x)
         # TODO - you fill in here.
         return
 
     def dequeue(self):
+        if len(self._deq) == 0:
+            self._deq = [node for node in reversed(self._enq)]
+            self._enq = []
         # TODO - you fill in here.
-        return 0
+        return self._deq.pop()
 
 
 def queue_tester(ops):

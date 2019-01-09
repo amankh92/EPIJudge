@@ -3,19 +3,47 @@ from test_framework.test_failure import TestFailure
 
 
 class Stack:
+    class MaxWithCount:
+        def __init__(self, max, count):
+            self.max = max
+            self.count = count
+
+    def __init__(self):
+        self._elements = []
+        self._cached_max = []
+
     def empty(self):
         # TODO - you fill in here.
-        return True
+        return len(self._elements) == 0
 
     def max(self):
+        if self.empty():
+            raise IndexError('max(): empty stack')
         # TODO - you fill in here.
-        return 0
+        return self._cached_max[-1].max
 
     def pop(self):
+        if self.empty():
+            raise IndexError('pop(): empty stack')
+        current_max = self.max()
+        popped = self._elements.pop()
+        if popped == current_max:
+            if self._cached_max[-1].count == 1:
+                self._cached_max.pop()
+            else:
+                self._cached_max[-1].count -= 1
         # TODO - you fill in here.
-        return 0
+        return popped
 
     def push(self, x):
+        self._elements.append(x)
+        if len(self._cached_max) == 0:
+            self._cached_max.append(self.MaxWithCount(x, 1))
+        else:
+            if x == self.max():
+                self._cached_max[-1].count += 1
+            elif x > self.max():
+                self._cached_max.append(self.MaxWithCount(x, 1))
         # TODO - you fill in here.
         return
 

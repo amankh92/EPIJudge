@@ -6,7 +6,28 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def has_cycle(head):
+    def len_cycle(node):
+        count = 1
+        cur = node.next
+        while cur is not node:
+            count += 1
+            cur = cur.next
+        return count
     # TODO - you fill in here.
+    slow = head
+    fast = head.next
+    p1 = p2 = head
+    while fast and fast.next and fast.next.next:
+        if slow is fast:
+            for _ in range(len_cycle(slow)):
+                p2 = p2.next
+            while p1 and p2:
+                if p1 is p2:
+                    return p1
+                p1 = p1.next
+                p2 = p2.next
+        slow = slow.next
+        fast = fast.next.next
     return None
 
 
