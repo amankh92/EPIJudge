@@ -13,7 +13,18 @@ class BinaryTreeNode:
         self.size = size
 
 
-def find_kth_node_binary_tree(tree, k):
+def find_kth_node_binary_tree1(tree, k):
+    stack = []
+    while stack or tree:
+        if tree:
+            stack.append(tree)
+            tree = tree.left
+        else:
+            tree = stack.pop()
+            k -= 1
+            if k == 0:
+                return tree
+            tree = tree.right
     # TODO - you fill in here.
     return None
 
