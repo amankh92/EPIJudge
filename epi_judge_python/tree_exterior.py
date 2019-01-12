@@ -6,8 +6,40 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def exterior_binary_tree(tree):
+
+    lbl = []
+    rbl = []
+
+    def is_leaf(node):
+        return not node.left and not node.right
+
+    def left(node, is_boundary):
+        # pre-order because nodes are to be appended to result while going down
+        if node is None:
+            return None
+
+        if is_boundary or is_leaf(node):
+            lbl.append(node)
+
+        left(node.left, is_boundary)
+        left(node.right, is_boundary and not node.left)
+
+    def right(node, is_boundary):
+        # post-order because nodes are to be appended to result while going up
+        if node is None:
+            return None
+
+        right(node.left, is_boundary and not node.right)
+        right(node.right, is_boundary)
+
+        if is_boundary or is_leaf(node):
+            rbl.append(node)
+
+    if tree is not None:
+        left(tree.left, True)
+        right(tree.right, True)
     # TODO - you fill in here.
-    return []
+    return ([tree] + lbl + rbl) if tree else []
 
 
 def create_output_list(L):

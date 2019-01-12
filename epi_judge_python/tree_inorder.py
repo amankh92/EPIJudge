@@ -2,6 +2,7 @@ from test_framework import generic_test
 
 # [-4, -3, -5, -9, 4, 2, 2, 1, 8, -4, -6, -2, -6, -5, 10, -2, 10, -3, 10, 5, 9, 6, 1, -4, -1, 10, -8, 3, -11, -4, -12]
 
+
 def inorder_traversal(tree):
     result = []
 
@@ -28,6 +29,7 @@ def inorder_traversl(tree):
             tree = popped.right
     print(result)
     return result
+
 
 def inorder_traversal1(tree):
     stack = []

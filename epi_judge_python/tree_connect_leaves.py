@@ -6,8 +6,18 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def create_list_of_leaves(tree):
+    result = []
+
+    def inorder(node):
+        if node is None:
+            return None
+        inorder(node.left)
+        if not node.left and not node.right:
+            result.append(node)
+        inorder(node.right)
     # TODO - you fill in here.
-    return []
+    inorder(tree)
+    return result
 
 
 @enable_executor_hook

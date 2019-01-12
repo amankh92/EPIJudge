@@ -13,6 +13,17 @@ class BinaryTreeNode:
 
 
 def construct_right_sibling(tree):
+
+    def construct_right_sibling_helper(node):
+        start = node
+        while start and start.left:
+            start.left.next = start.right
+            start.right.next = start.next and start.next.left
+            start = start.next
+
+    while tree and tree.left:
+        construct_right_sibling_helper(tree)
+        tree = tree.left
     # TODO - you fill in here.
     return
 
