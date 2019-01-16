@@ -7,8 +7,23 @@ MinMax = collections.namedtuple('MinMax', ('smallest', 'largest'))
 
 
 def find_min_max(A):
+    global_min = float('inf')
+    global_max = float('-inf')
+    for i in range(0, len(A), 2):
+        if i == len(A) - 1:
+            break
+        if A[i] > A[i + 1]:
+            global_max = max(global_max, A[i])
+            global_min = min(global_min, A[i + 1])
+        else:
+            global_max = max(global_max, A[i + 1])
+            global_min = min(global_min, A[i])
+    if len(A) % 2:
+        global_max = max(global_max, A[-1])
+        global_min = min(global_min, A[-1])
+
     # TODO - you fill in here.
-    return MinMax(0, 0)
+    return MinMax(global_min, global_max)
 
 
 def res_printer(prop, value):

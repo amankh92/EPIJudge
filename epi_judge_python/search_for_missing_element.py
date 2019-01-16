@@ -9,7 +9,30 @@ DuplicateAndMissing = collections.namedtuple('DuplicateAndMissing',
 
 def find_duplicate_missing(A):
     # TODO - you fill in here.
-    return DuplicateAndMissing(0, 0)
+    xor_array = 0
+    for x in A:
+        xor_array ^= x
+
+    xor_all = 0
+    for i in range(1, len(A)):
+        xor_all ^= i
+
+    xor_final = xor_all ^ xor_array
+
+    set_bit_num = xor_final & ~(xor_final - 1)
+    x_0 = 0
+    for i, x in enumerate(A):
+        if x & set_bit_num:
+            x_0 ^= x
+        if i & set_bit_num:
+            x_0 ^= i
+    x_0 ^= xor_final
+    if x_0 in set(A):
+        y_0 = x_0 ^ xor_final
+    else:
+        y_0 = x_0
+        x_0 ^= xor_final
+    return DuplicateAndMissing(x_0, y_0)
 
 
 def res_printer(prop, value):
